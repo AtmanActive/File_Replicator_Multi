@@ -5,5 +5,6 @@ This program scans the selected source path for files, recursively, ignoring fol
 
 If big source/dest trees are selected, the GUI will get unrensponsive until finished.
 
+Inspired by File Replicator by Tyler Retelle (darklight_tr), but that works one-to-many, while I needed many-to-somewhere.
 
 Developed in AutoIt3 by AtmanActive 2022.
