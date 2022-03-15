@@ -1,0 +1,458 @@
+; -- Created with ISN Form Studio 2 for ISN AutoIt Studio -- ;
+#include <StaticConstants.au3>
+#include <GUIConstantsEx.au3>
+#include <WindowsConstants.au3>
+#Include <GuiButton.au3>
+#include <EditConstants.au3>
+
+$File_Replicator_Multi_GUI = GUICreate("File Replicator Multi",800,309,-1,-1,-1,-1)
+GUISetBkColor(0x000000,$File_Replicator_Multi_GUI)
+GUISetOnEvent($GUI_EVENT_CLOSE, "_Exit", $File_Replicator_Multi_GUI)
+GUICtrlCreateLabel("This program scans the selected source path for files, recursively, ignoring folders and then iterates for each found to search for the same named file in the destination path, and, if found, overwrites the destination file with the source file. If big source/dest trees are selected, the GUI will get unrensponsive until finished.",10,5,779,45,-1,-1)
+GUICtrlSetFont(-1,9,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xFFFFFF")
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateGroup("",10,53,779,84,-1,-1)
+GUICtrlSetFont(-1,10,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xFFFFFF")
+GUICtrlSetBkColor(-1,"-2")
+$input_path_source = GUICtrlCreateInput("",17,84,701,26,-1,$WS_EX_CLIENTEDGE)
+GUICtrlSetFont(-1,10,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xFFFFFF")
+GUICtrlSetBkColor(-1,"0x606060")
+GUICtrlSetTip(-1,"Paste or type your source path here")
+$button_browse_src = GUICtrlCreateButton("...",724,83,58,28,-1,-1)
+GUICtrlSetOnEvent(-1,"_BrowseForSourcePath")
+GUICtrlSetFont(-1,10,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xFFFFFF")
+GUICtrlSetBkColor(-1,"0x959595")
+GUICtrlSetTip(-1,"Click to browse the file system")
+GUICtrlCreateGroup("",10,151,779,84,-1,-1)
+GUICtrlSetFont(-1,10,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xFFFFFF")
+GUICtrlSetBkColor(-1,"-2")
+$input_path_destination = GUICtrlCreateInput("",17,181,701,26,-1,$WS_EX_CLIENTEDGE)
+GUICtrlSetFont(-1,10,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xFFFFFF")
+GUICtrlSetBkColor(-1,"0x606060")
+GUICtrlSetTip(-1,"Paste or type your destination path here")
+$button_browse_dest = GUICtrlCreateButton("...",724,180,58,28,-1,-1)
+GUICtrlSetOnEvent(-1,"_BrowseForDestinationPath")
+GUICtrlSetFont(-1,10,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xFFFFFF")
+GUICtrlSetBkColor(-1,"0x959595")
+GUICtrlSetTip(-1,"Click to browse the file system")
+GUICtrlCreateLabel("Source",17,64,39,15,-1,-1)
+GUICtrlSetFont(-1,10,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xFFFFFF")
+GUICtrlSetBkColor(-1,"-2")
+GUICtrlCreateLabel("Destination",17,161,77,15,-1,-1)
+GUICtrlSetFont(-1,10,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xFFFFFF")
+GUICtrlSetBkColor(-1,"-2")
+$button_go = GUICtrlCreateButton("GO",320,260,160,35,-1,-1)
+GUICtrlSetOnEvent(-1,"_RunTheReplicator")
+GUICtrlSetFont(-1,10,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xFFFFFF")
+GUICtrlSetBkColor(-1,"0x959595")
+GUICtrlSetTip(-1,"Go!")
+$button_view_log = GUICtrlCreateButton("View log",724,260,65,35,-1,-1)
+GUICtrlSetOnEvent(-1,"_ViewLog")
+GUICtrlSetFont(-1,10,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xFFFFFF")
+GUICtrlSetBkColor(-1,"0x959595")
+GUICtrlSetTip(-1,"Click to view the log file")
+$button_about = GUICtrlCreateLabel("by AtmanActive 2022.",10,282,118,15,-1,-1)
+GUICtrlSetOnEvent(-1,"_openAboutURL")
+GUICtrlSetFont(-1,9,400,0,"Segoe UI")
+GUICtrlSetColor(-1,"0xC0C0C0")
+GUICtrlSetBkColor(-1,"-2")
+
+
+
+#cs
+[gui]
+Handle_deklaration=default
+Handle_deklaration_const=false
+title=File Replicator Multi
+breite=800
+hoehe=309
+style=-1
+exstyle=-1
+bgcolour=0x000000
+bgimage=none
+handle=$File_Replicator_Multi_GUI
+parent=
+code=
+codebeforegui=
+xpos=-1
+ypos=-1
+center_gui=true
+title_textmode=normal
+isf_include_once=false
+only_controls_in_isf=false
+const_modus=default
+gui_code_in_function=false
+gui_code_in_function_name=
+gui_event_close=_Exit
+gui_event_minimize=
+gui_event_restore=
+gui_event_maximize=
+gui_event_mousemove=
+gui_event_primarydown=
+gui_event_primaryup=
+gui_event_secoundarydown=
+gui_event_secoundaryup=
+gui_event_resized=
+gui_event_dropped=
+defaultfont=MS Sans Serif
+defaultfontsize=8
+[0x001732E2]
+type=label
+handle=433
+locked=0
+resize=
+x=10
+y=10
+width=779
+height=43
+func=
+font=Segoe UI
+fontsize=10
+fontstyle=400
+fontattribute=0
+tooltip=
+bgimage=
+textcolour=0xFFFFFF
+id=
+text=This program scans the selected source path for files, recursively, ignoring folders and then iterates for each found to search for the same named file in the destination path, and, if found, overwrites the destination file with the source file.
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+bgcolour=-2
+code=
+order=0
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+[0x001F32E6]
+type=group
+handle=434
+locked=0
+resize=
+x=10
+y=53
+width=779
+height=84
+func=
+font=Segoe UI
+fontsize=10
+fontstyle=400
+fontattribute=0
+tooltip=
+bgimage=
+textcolour=0xFFFFFF
+id=
+text=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+bgcolour=-2
+code=
+order=2
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+[0x001C32EA]
+type=input
+handle=435
+locked=0
+resize=
+x=17
+y=84
+width=701
+height=26
+func=
+font=Segoe UI
+fontsize=10
+fontstyle=400
+fontattribute=0
+tooltip=Paste or type your source path here
+bgimage=
+textcolour=0xFFFFFF
+id=$input_path_source
+text=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=$WS_EX_CLIENTEDGE
+bgcolour=0x606060
+code=
+order=3
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+[0x000E32F4]
+type=button
+handle=436
+locked=0
+resize=
+x=724
+y=83
+width=58
+height=28
+func=_BrowseForSourcePath
+font=Segoe UI
+fontsize=10
+fontstyle=400
+fontattribute=0
+tooltip=Click to browse the file system
+bgimage=
+textcolour=0xFFFFFF
+id=
+text=...
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+bgcolour=0x959595
+code=
+order=4
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+[0x000F3322]
+type=group
+handle=437
+locked=0
+resize=
+x=10
+y=151
+width=779
+height=84
+func=
+font=Segoe UI
+fontsize=10
+fontstyle=400
+fontattribute=0
+tooltip=
+bgimage=
+textcolour=0xFFFFFF
+id=
+text=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+bgcolour=-2
+code=
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+order=5
+[0x000E3334]
+type=input
+handle=438
+locked=0
+resize=
+x=17
+y=181
+width=701
+height=26
+func=
+font=Segoe UI
+fontsize=10
+fontstyle=400
+fontattribute=0
+tooltip=Paste or type your destination path here
+bgimage=
+textcolour=0xFFFFFF
+id=$input_path_destination
+text=
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=$WS_EX_CLIENTEDGE
+bgcolour=0x606060
+code=
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+order=6
+[0x019E33C4]
+type=button
+handle=439
+locked=0
+resize=
+x=724
+y=180
+width=58
+height=28
+func=_BrowseForDestinationPath
+font=Segoe UI
+fontsize=10
+fontstyle=400
+fontattribute=0
+tooltip=Click to browse the file system
+bgimage=
+textcolour=0xFFFFFF
+id=
+text=...
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+bgcolour=0x959595
+code=
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+order=7
+[0x00283332]
+type=label
+handle=440
+locked=0
+resize=
+x=17
+y=64
+width=39
+height=15
+func=
+font=Segoe UI
+fontsize=10
+fontstyle=400
+fontattribute=0
+tooltip=
+bgimage=
+textcolour=0xFFFFFF
+id=
+text=Source
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+bgcolour=-2
+code=
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+order=8
+[0x0012330C]
+type=label
+handle=441
+locked=0
+resize=
+x=17
+y=161
+width=77
+height=15
+func=
+font=Segoe UI
+fontsize=10
+fontstyle=400
+fontattribute=0
+tooltip=
+bgimage=
+textcolour=0xFFFFFF
+id=
+text=Destination
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+bgcolour=-2
+code=
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+order=9
+[0x00243346]
+type=button
+handle=442
+locked=0
+resize=
+x=320
+y=260
+width=160
+height=35
+func=_RunTheReplicator
+font=Segoe UI
+fontsize=10
+fontstyle=400
+fontattribute=0
+tooltip=Go!
+bgimage=
+textcolour=0xFFFFFF
+id=$button_go
+text=GO
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+bgcolour=0x959595
+code=
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+order=10
+[0x0024159C]
+type=button
+handle=443
+locked=0
+resize=
+x=724
+y=260
+width=65
+height=35
+func=_ViewLog
+font=Segoe UI
+fontsize=10
+fontstyle=400
+fontattribute=0
+tooltip=Click to view the log file
+bgimage=
+textcolour=0xFFFFFF
+id=
+text=View log
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+bgcolour=0x959595
+code=
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+order=11
+[0x00283370]
+type=label
+handle=444
+locked=0
+resize=
+x=10
+y=282
+width=118
+height=15
+func=_openAboutURL
+font=Segoe UI
+fontsize=9
+fontstyle=400
+fontattribute=0
+tooltip=
+bgimage=
+textcolour=0xC0C0C0
+id=
+text=by AtmanActive 2022.
+state=$GUI_SHOW+$GUI_ENABLE
+style=
+exstyle=
+bgcolour=-2
+code=
+tabpage=-1
+iconindex=
+iconlarge=0
+textmode=text
+order=12
+#ce
